@@ -1,0 +1,40 @@
+@import url('https://cdn.staticdelivr.com/gfonts/css2?family=VT323:wght@300..700&display=swap');
+
+:root {
+    --background: #2e2a26;
+    --foreground: hsl(201, 100%, 62%);
+    --accent: #3bbcff;
+    --font-size: 1.5rem;
+}
+
+body {
+    font-family: VT323, monospace;
+}
+
+div.logo::before {
+    content: '$\00a0';
+}
+
+@keyframes cursor-blink {
+    0% {
+      opacity: 0;
+    }
+  }
+  
+  div.logo::after {
+    content: "";
+    width: calc(var(--font-size)/2.5);
+    height: var(--font-size);
+    background: var(--background);
+    display: inline-block;
+    animation: cursor-blink 1.5s steps(2) infinite;
+    /* margin-right: calc(var(--font-size)/-4); */
+  }
+
+code, kbd {
+    font-family: VT323, monospace !important;
+}
+
+footer > div.footer__inner > div.copyright > span {
+    display: none !important;
+}
