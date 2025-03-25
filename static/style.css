@@ -1,26 +1,26 @@
-/* presentation-only things */
 @import url('https://cdn.staticdelivr.com/gfonts/css2?family=VT323&display=swap');
-
-@keyframes cursor-blink {
-    0% {
-        opacity: 1;
-    };
-    50% {
-        opacity: 0;
-    }
-}
 
 /* base style changes */
 :root {
-    --background: #2e2a26;
+    --background-h: 30;
+    --background-s: 10%;
+    --background-l: 16%;
+    --background-hsl: var(--background-h), var(--background-s), var(--background-l);
+    --background: hsl(var(--background-hsl));
+    --background-darker: hsl(calc(var(--background-h)/2), calc(var(--background-s)/2), calc(var(--background-l)/2));
     --foreground: hsl(44, 91%, 49%);
-    --accent: #edb00b;
+    --accent: hsl(44, 91%, 49%);
     --font-size: 1.5rem;
+    --primary-crt-frame-url: url('/images/crt_amber_mask.png');
 }
 
 body {
     font-family: VT323, monospace;
 }
+.container {
+    padding: 60px 40px 40px 40px;
+}
+
 code, kbd {
     font-family: VT323, monospace !important;
 }
@@ -29,14 +29,81 @@ footer > div.footer__inner > div.copyright > span {
     display: none !important;
 }
 
+/* switch to the "mobile menu" because it's more ~aesthetic~ */
+
+.menu--mobile .menu__trigger {
+    display: block;
+    text-decoration: underline;
+}
+
+.menu--mobile .menu__dropdown {
+    left: auto;
+    right: 0;
+}
+
+.navigation-menu, .menu--desktop {
+    display: none;
+}
+
+.menu__dropdown {
+    box-shadow: none;
+}
+
+/* presentation-only things */
+
 div.logo::before {
     content: '%\00a0';
+}
+
+@keyframes cursor-blink {
+    from {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
 }
 
 div.logo::after {
     content: "";
     background: var(--background);
-    height: 1.5rem;
-    width: .6rem;
+    height: var(--font-size);
+    width: calc(var(--font-size)/2.5);
     animation: cursor-blink 1.5s steps(1) infinite;
+}
+
+/* scanlines */
+body, .menu__dropdown {
+    background: linear-gradient(to top, #000000, #000000, var(--background-darker), var(--background-darker));
+    background-size: cover;
+    background-size: 100% 10px;
+}
+
+/* blur/phosphor glow */
+.container {
+    filter: blur(0.8px);
+    text-shadow: 0 0 calc(var(--font-size)/2.5) var(--foreground);
+}
+
+/* crt frame */
+@media screen {
+    @media(min-width: 684px) {
+        .crt-frame {
+            pointer-events: none;
+            z-index: 9000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            height: 100%;
+            width: 100%;
+        }
+    }
+    @media(max-width: 684px) {
+        .crt-frame {
+            display: none;
+        }
+    }
 }
