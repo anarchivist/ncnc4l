@@ -72,21 +72,22 @@ div.logo::after {
     animation: cursor-blink 1.5s steps(1) infinite;
 }
 
-/* scanlines */
-body, .menu__dropdown {
-    background: linear-gradient(to top, #000000, #000000, var(--background-darker), var(--background-darker));
-    background-size: cover;
-    background-size: 100% 10px;
-}
-
-/* blur/phosphor glow */
-.container {
-    filter: blur(0.8px);
-    text-shadow: 0 0 calc(var(--font-size)/2.5) var(--foreground);
-}
 
 /* crt frame */
 @media screen {
+    /* scanlines */
+    body, .menu__dropdown {
+        background: linear-gradient(to top, #000000, #000000, var(--background-darker), var(--background-darker));
+        background-size: cover;
+        background-size: 100% 10px;
+    }
+
+    /* blur/phosphor glow */
+    .container {
+        filter: blur(0.8px);
+        text-shadow: 0 0 calc(var(--font-size)/2.5) var(--foreground);
+    }
+
     @media(min-width: 684px) {
         .crt-frame {
             pointer-events: none;
@@ -101,9 +102,19 @@ body, .menu__dropdown {
             width: 100%;
         }
     }
+
     @media(max-width: 684px) {
         .crt-frame {
             display: none;
         }
+    }
+}
+@media print {
+    .crt-frame {
+        display: none;
+    }
+    body {
+        background: unset;
+        color: #000;
     }
 }
